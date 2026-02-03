@@ -1,0 +1,21 @@
+\documentclass[11pt]{amsart}
+\begin{document}
+
+Let $\mathbb{N} = \{0,1,2,\dots\}$.
+For $k \in \mathbb N$,
+let $B_{2k} \in \mathbb{Q}$ denote the $(2k)$\textsuperscript{th} Bernoulli number.
+For $m \in \mathbb{N}$, we say that a prime $p$ is $m$-regular if
+$p$ is odd and $p$ doesn't divide the numerator of $B_{2k}$
+for each $k \in \mathbb N$ satisfying
+$1 \le 2k \le \min\left( m, p-3\right)$.
+
+Fix a real number $\alpha > 1/2$ and define
+\[ M_{\alpha}(p) := \left\lfloor \frac{\sqrt{p}}{(\log p)^{\alpha}}\right\rfloor \in \mathbb{N}. \]
+Prove that for real numbers $X \to +\infty$,
+\[
+  \#\left\{ p\le X \text{ prime}: p \text{ is not $M_{\alpha}(p)$-regular} \right\}
+  = O\left( \frac{X}{(\log X)^{2 \alpha}} \right)
+\]
+where the implied constant may depend on $\alpha$.
+
+\end{document}
