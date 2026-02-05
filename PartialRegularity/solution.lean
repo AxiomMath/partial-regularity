@@ -177,12 +177,12 @@ lemma riemannZeta_two_re_lt_two : (riemannZeta 2).re < 2 := by
     simp [h2, Complex.ext_iff]
     <;>
     simp_all [Complex.ext_iff, pow_two]
-  
+
   have h2 : (Real.pi : ℝ) ^ 2 / 6 < 2 := by
     have := Real.pi_lt_d2
     norm_num at this ⊢ <;>
     (try nlinarith [Real.pi_pos, Real.pi_gt_three])
-  
+
   rw [h1]
   exact h2
 
@@ -190,13 +190,13 @@ lemma riemannZeta_two_mul_nat_im_eq_zero (k : ℕ) (hk : 1 ≤ k) :
     (riemannZeta (2 * k : ℂ)).im = 0 := by
   have h₁ : (2 * k : ℕ) ≠ 0 := by
     omega
-  
+
   have h₂ : (riemannZeta (2 * (k : ℕ) : ℂ)).im = 0 := by
     have h₃ : (riemannZeta (2 * (k : ℕ) : ℂ)) = (-1 : ℂ) ^ ((k : ℕ) + 1) * (2 : ℂ) ^ (2 * (k : ℕ) - 1) * (Real.pi : ℂ) ^ (2 * (k : ℕ)) * (bernoulli (2 * (k : ℕ)) : ℂ) / ((2 * (k : ℕ)).factorial : ℂ) := by
       have h₄ := riemannZeta_two_mul_nat (by
         simpa using h₁)
       simp_all [Complex.ext_iff, pow_mul]
-    
+
     rw [h₃]
     simp [Complex.ext_iff, pow_mul, pow_add, pow_one, Complex.ext_iff, pow_mul, pow_add, pow_one]
     <;>
@@ -206,7 +206,7 @@ lemma riemannZeta_two_mul_nat_im_eq_zero (k : ℕ) (hk : 1 ≤ k) :
       ring_nf) <;>
     (try
       simp_all [Complex.ext_iff, pow_mul, pow_add, pow_one, Complex.ext_iff, pow_mul, pow_add, pow_one])
-  
+
   simpa [h₁] using h₂
 
 lemma two_pow_mul_pi_pow_eq (k : ℕ) (hk : 1 ≤ k) :
@@ -239,7 +239,7 @@ lemma bernoulli_eq_zeta_formula_aux (k : ℕ) (hk : 1 ≤ k) :
     (riemannZeta (2 * k : ℂ)).re = (-1 : ℝ)^(k + 1) * 2^(2 * k - 1) * Real.pi ^ (2 * k) * (bernoulli (2 * k) : ℝ) / (2 * k).factorial := by
   have h₁ : (k : ℕ) ≠ 0 := by
     omega
-  
+
   have h₂ : riemannZeta (2 * (k : ℕ)) = (-1 : ℂ) ^ (k + 1) * (2 : ℂ) ^ (2 * k - 1 : ℕ) * (Real.pi : ℂ) ^ (2 * k) * (bernoulli (2 * k) : ℂ) / (2 * k : ℕ).factorial := by
     have h₃ : (k : ℕ) ≠ 0 := h₁
     have h₄ : riemannZeta (2 * (k : ℕ)) = (-1 : ℂ) ^ (k + 1) * (2 : ℂ) ^ (2 * k - 1 : ℕ) * (Real.pi : ℂ) ^ (2 * k) * (bernoulli (2 * k) : ℂ) / (2 * k : ℕ).factorial := by
@@ -248,10 +248,10 @@ lemma bernoulli_eq_zeta_formula_aux (k : ℕ) (hk : 1 ≤ k) :
         simpa [Complex.ext_iff, pow_mul, mul_assoc] using riemannZeta_two_mul_nat h₃
       exact h₅
     exact h₄
-  
+
   have h₃ : (riemannZeta (2 * k : ℂ)).re = (riemannZeta (2 * (k : ℕ))).re := by
     norm_cast
-  
+
   have h₄ : ((-1 : ℂ) ^ (k + 1) * (2 : ℂ) ^ (2 * k - 1 : ℕ) * (Real.pi : ℂ) ^ (2 * k) * (bernoulli (2 * k) : ℂ) / (2 * k : ℕ).factorial : ℂ).re = (-1 : ℝ)^(k + 1) * 2^(2 * k - 1) * Real.pi ^ (2 * k) * (bernoulli (2 * k) : ℝ) / (2 * k).factorial := by
     simp [Complex.ext_iff, pow_mul, Complex.ext_iff, Complex.ofReal_neg, Complex.ofReal_one, Complex.ofReal_mul,
       Complex.ofReal_pow, Complex.ofReal_add, Complex.ofReal_sub, Complex.ofReal_div]
@@ -270,7 +270,7 @@ lemma bernoulli_eq_zeta_formula_aux (k : ℕ) (hk : 1 ≤ k) :
       Complex.ofReal_pow, Complex.ofReal_add, Complex.ofReal_sub, Complex.ofReal_div]
     <;>
     ring_nf
-  
+
   have h₅ : (riemannZeta (2 * k : ℂ)).re = (-1 : ℝ)^(k + 1) * 2^(2 * k - 1) * Real.pi ^ (2 * k) * (bernoulli (2 * k) : ℝ) / (2 * k).factorial := by
     calc
       (riemannZeta (2 * k : ℂ)).re = (riemannZeta (2 * (k : ℕ))).re := by rw [h₃]
@@ -278,7 +278,7 @@ lemma bernoulli_eq_zeta_formula_aux (k : ℕ) (hk : 1 ≤ k) :
         rw [h₂]
       _ = (-1 : ℝ)^(k + 1) * 2^(2 * k - 1) * Real.pi ^ (2 * k) * (bernoulli (2 * k) : ℝ) / (2 * k).factorial := by
         rw [h₄]
-  
+
   exact h₅
 
 lemma neg_one_pow_mul_self (n : ℕ) : (-1 : ℝ)^n * (-1 : ℝ)^n = 1 := by
@@ -433,7 +433,7 @@ lemma vonStaudtPrimes_prod_pos (n : ℕ) : 0 < ∏ p ∈ vonStaudtPrimes n, p :=
 lemma bernoulli_two_den : (bernoulli 2).den = 6 := by
   have h₀ : bernoulli 2 = 1 / 6 := by
     norm_num [bernoulli_two]
-  
+
   rw [h₀]
   <;> simp [div_eq_mul_inv]
 
@@ -459,7 +459,7 @@ lemma prime_dvd_six_iff (p : ℕ) (hp : Nat.Prime p) : p ∣ 6 ↔ p = 2 ∨ p =
       have h₆ : p = 3 := by
         interval_cases p <;> norm_num at hp ⊢ <;> try contradiction
       exact Or.inr h₆
-  
+
   have h_converse : (p = 2 ∨ p = 3) → p ∣ 6 := by
     intro h
     rcases h with (rfl | rfl)
@@ -467,7 +467,7 @@ lemma prime_dvd_six_iff (p : ℕ) (hp : Nat.Prime p) : p ∣ 6 ↔ p = 2 ∨ p =
       norm_num
     · -- Case p = 3
       norm_num
-  
+
   exact ⟨h_imp, h_converse⟩
 
 lemma prime_sub_one_dvd_two_iff (p : ℕ) (hp : Nat.Prime p) : (p - 1) ∣ 2 ↔ p = 2 ∨ p = 3 := by
@@ -700,7 +700,7 @@ lemma prime_dvd_den_imp_padic_neg (q : ℚ) (p : ℕ) (hp : Nat.Prime p) (hdvd :
   haveI := Fact.mk hp
   have h₁ : padicValRat p q = padicValInt p q.num - padicValNat p q.den := by
     rw [padicValRat.eq_1]
-  
+
   rw [h₁]
   have h₂ : padicValNat p q.den ≥ 1 := by
     have h₃ : q.den ≠ 0 := by
@@ -747,7 +747,7 @@ lemma prime_dvd_den_imp_padic_neg (q : ℚ) (p : ℕ) (hp : Nat.Prime p) (hdvd :
       apply padicValInt.eq_zero_of_not_dvd
       exact_mod_cast h₄
     exact h₅
-  
+
   have h₄ : (padicValInt p q.num : ℤ) - (padicValNat p q.den : ℤ) < 0 := by
     have h₅ : (padicValInt p q.num : ℤ) = 0 := by
       norm_cast
@@ -755,7 +755,7 @@ lemma prime_dvd_den_imp_padic_neg (q : ℚ) (p : ℕ) (hp : Nat.Prime p) (hdvd :
     have h₆ : (padicValNat p q.den : ℤ) ≥ 1 := by
       norm_cast
     linarith
-  
+
   have h₅ : (padicValInt p q.num : ℤ) - (padicValNat p q.den : ℤ) < 0 := h₄
   exact by
     simpa [h₁] using h₅
@@ -1045,7 +1045,7 @@ lemma faulhaber_term_at_n (n p : Nat) (hn : 0 < n) :
     have h₁ : Nat.choose (n + 1) n = n + 1 := by
       simp [Nat.choose_succ_succ, Nat.choose_zero_right, Nat.choose_one_right]
     norm_cast
-  
+
   have h_pow : (p : Rat) ^ (n + 1 - n : ℕ) = (p : Rat) := by
     have h₁ : (n + 1 - n : ℕ) = 1 := by
       have h₂ : n + 1 - n = 1 := by
@@ -1055,7 +1055,7 @@ lemma faulhaber_term_at_n (n p : Nat) (hn : 0 < n) :
       exact h₂
     rw [h₁]
     <;> simp [pow_one]
-  
+
   calc
     bernoulli n * ((n + 1).choose n : Rat) * (p : Rat) ^ (n + 1 - n) / (n + 1) = bernoulli n * ((n + 1 : Rat)) * (p : Rat) / (n + 1 : Rat) := by
       rw [h_choose, h_pow]
@@ -1364,7 +1364,7 @@ lemma powerSum_dvd_of_not_dvd (k : ℕ) (hk : 2 ≤ k) (p : ℕ) (hp : Nat.Prime
 lemma bernoulli_two_mul_ne_zero (k : ℕ) (hk : 1 ≤ k) : bernoulli (2 * k) ≠ 0 := by
   have h1 : (2 * k : ℕ) ≠ 0 := by
     omega
-  
+
   have h2 : riemannZeta (2 * (k : ℕ)) = (-1 : ℂ) ^ (k + 1) * (2 : ℂ) ^ (2 * k - 1) *
       (Real.pi : ℂ) ^ (2 * k) * (bernoulli (2 * k) : ℂ) / ((2 * k).factorial : ℂ) := by
     have h4 : riemannZeta (2 * (k : ℕ)) = (-1 : ℂ) ^ (k + 1) * (2 : ℂ) ^ (2 * k - 1) * (Real.pi : ℂ) ^ (2 * k) * (bernoulli (2 * k) : ℂ) / ((2 * k).factorial : ℂ) := by
@@ -1382,7 +1382,7 @@ lemma bernoulli_two_mul_ne_zero (k : ℕ) (hk : 1 ≤ k) : bernoulli (2 * k) ≠
         exact h6
       exact h5
     exact h4
-  
+
   have h3 : riemannZeta (2 * (k : ℕ)) ≠ 0 := by
     have h4 : 1 < (2 * (k : ℕ) : ℝ) := by
       have h7 : (2 * (k : ℕ) : ℝ) ≥ 2 * (1 : ℝ) := by
@@ -1406,7 +1406,7 @@ lemma bernoulli_two_mul_ne_zero (k : ℕ) (hk : 1 ≤ k) : bernoulli (2 * k) ≠
         exact h15
       exact h14
     exact h10
-  
+
   have h4 : (-1 : ℂ) ^ (k + 1) * (2 : ℂ) ^ (2 * k - 1) * (Real.pi : ℂ) ^ (2 * k) * (bernoulli (2 * k) : ℂ) / ((2 * k).factorial : ℂ) ≠ 0 := by
     have h5 : (-1 : ℂ) ^ (k + 1) ≠ 0 := by
       simp [Complex.ext_iff, pow_add, pow_one, pow_mul]
@@ -1449,7 +1449,7 @@ lemma bernoulli_two_mul_ne_zero (k : ℕ) (hk : 1 ≤ k) : bernoulli (2 * k) ≠
       have h16 : (bernoulli (2 * k) : ℂ) ≠ 0 := h8
       simp_all [mul_eq_mul_left_iff, h13, h14, h15, h16]
     exact h10
-  
+
   have h5 : (bernoulli (2 * k) : ℂ) ≠ 0 := by
     by_contra h
     have h6 : (bernoulli (2 * k) : ℂ) = 0 := by simpa using h
@@ -1457,13 +1457,13 @@ lemma bernoulli_two_mul_ne_zero (k : ℕ) (hk : 1 ≤ k) : bernoulli (2 * k) ≠
       rw [h6]
       simp [mul_zero, div_eq_mul_inv]
     contradiction
-  
+
   have h6 : bernoulli (2 * k) ≠ 0 := by
     intro h7
     have h8 : (bernoulli (2 * k) : ℂ) = 0 := by
       norm_cast
     contradiction
-  
+
   exact h6
 
 lemma padic_val_bernoulli_nonneg_of_not_dvd (k : ℕ) (hk : 2 ≤ k) (p : ℕ) (hp : Nat.Prime p)
@@ -1589,13 +1589,13 @@ lemma neg_one_div_p_ne_zero (p : ℕ) (hp : Nat.Prime p) :
   have h₁ : (p : ℚ) ≠ 0 := by
     norm_cast <;>
     (try simp_all [Nat.Prime.ne_zero])
-  
+
   have h₂ : (-1 : ℚ) / p ≠ 0 := by
     field_simp [h₁]
     <;>
     norm_num <;>
     (try simp_all [Nat.Prime.ne_zero])
-  
+
   exact h₂
 
 lemma padic_val_add_neg_one_div_p (p : ℕ) (hp : Nat.Prime p) (t : ℤ) (ht : t ≠ 0) :
@@ -2164,29 +2164,29 @@ lemma small_primes_subset_singleton (α : ℝ) (k : ℕ) (X : ℝ) :
   have h₁ : p ∈ primeCountSet α k X := by
     simp only [Finset.mem_filter] at hp
     exact hp.1
-  
+
   have h₂ : ¬(3 ≤ p) := by
     simp only [Finset.mem_filter] at hp
     exact hp.2
-  
+
   have h₄ : Nat.Prime p := by
     have h₅ : p ∈ primeCountSet α k X := h₁
     simp only [primeCountSet, Finset.mem_filter, Finset.mem_Icc] at h₅
     -- Extract the property that p is prime from the filter condition
     have h₆ : Nat.Prime p := by tauto
     exact h₆
-  
+
   have h₅ : 2 ≤ p := by
     have h₅₁ : Nat.Prime p := h₄
     have h₅₂ : 2 ≤ p := Nat.Prime.two_le h₅₁
     exact h₅₂
-  
+
   have h₇ : p = 2 := by
     omega
-  
+
   have h₈ : p ∈ ({2} : Finset ℕ) := by
     simp [h₇]
-  
+
   exact h₈
 
 lemma total_count_le_large_primes_plus_one (α : ℝ) (k : ℕ) (X : ℝ) :
@@ -2228,7 +2228,7 @@ lemma log_pow_ge_one (α : ℝ) (hα_pos : 0 < α) (p : ℕ) (hp3 : 3 ≤ p) :
     apply Real.log_le_log
     · norm_cast
     · norm_cast
-  
+
   have h₂ : Real.log 3 > 1 := by
     have : Real.log 3 > Real.log (Real.exp 1) := by
       -- Prove that ln(3) > ln(e) = 1
@@ -2243,14 +2243,14 @@ lemma log_pow_ge_one (α : ℝ) (hα_pos : 0 < α) (p : ℕ) (hp3 : 3 ≤ p) :
     have : Real.log (Real.exp 1) = 1 := by
       rw [Real.log_exp]
     linarith
-  
+
   have h₄ : (Real.log (p : ℝ)) ^ α ≥ 1 := by
     -- Use the fact that if x > 1 and y ≥ 0, then x^y ≥ 1
     have h₆ : (Real.log (p : ℝ)) ^ α ≥ 1 := by
       -- Use the property of real powers to show that if x ≥ 1 and α ≥ 0, then x^α ≥ 1
       exact Real.one_le_rpow (by linarith) (by linarith)
     exact h₆
-  
+
   exact h₄
 
 lemma sqrt_p_ge_2k (α : ℝ) (hα_pos : 0 < α) (k : ℕ) (p : ℕ) (hp3 : 3 ≤ p)
@@ -2263,11 +2263,11 @@ lemma sqrt_p_ge_2k (α : ℝ) (hα_pos : 0 < α) (k : ℕ) (p : ℕ) (hp3 : 3 �
       -- Prove that the logarithm of p is positive since p ≥ 3 > 1
       exact Real.log_pos (by linarith)
     exact h2
-  
+
   have h2 : (Real.log p : ℝ) ^ α > 0 := by
     -- Since (Real.log p : ℝ) > 0 and α > 0, the power is also positive.
     positivity
-  
+
   have h3 : Real.sqrt p ≥ 2 * k := by
     -- We know that (Real.log p) ^ α ≥ 1, so we can multiply the inequality by it.
     have h4 : Real.sqrt p / (Real.log p) ^ α * (Real.log p) ^ α ≥ (2 * k : ℝ) * (Real.log p) ^ α := by
