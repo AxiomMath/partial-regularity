@@ -17,4 +17,4 @@ rev = "v4.26.0"
 
 [[lean_lib]]
 name = "PartialRegularity"
-globs = ["PartialRegularity.+"]
+globs = ["PartialRegularity.+", "extension.+"]
