@@ -8,13 +8,13 @@ The formal proofs provided in this work were developed and verified using **Lean
 
 ## Input files
 
-- `problem.tex`: natural language description of the problem
-- `.environment`: specifies the Lean version
+- [`problem.tex`](problem.tex): natural language description of the problem
+- [`.environment`](.environment): specifies the Lean version
 
 ## Output files (Run with Lean 4.26.0)
 
-- `PartialRegularity/problem.lean`: translation of the problem statement into formal language (Lean)
-- `PartialRegularity/solution.lean`: solution in formal language (Lean)
+- [`PartialRegularity/problem.lean`](PartialRegularity/problem.lean): translation of the problem statement into formal language (Lean)
+- [`PartialRegularity/solution.lean`](PartialRegularity/solution.lean): solution in formal language (Lean)
 
 ## Additional files
 
@@ -25,7 +25,7 @@ such as [AlexKontorovich/PrimeNumberTheoremAnd](https://github.com/AlexKontorovi
 In one of these experiments, AxiomProver found that
 actually $C_{\alpha} = 10$ works for all $\alpha > 1/2$.
 
-We provide the corresponding Lean files in `extension/`.
+We provide the corresponding Lean files in [`extension/`](extension/).
 
 ## License
 
