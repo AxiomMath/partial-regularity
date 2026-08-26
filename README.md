@@ -33,6 +33,7 @@ This repository can be verified against the formal problem statement with the Le
 
 ```
 lake env comparator comparator.json
+lake env comparator comparator-extension.json
 ```
 
 ## License
