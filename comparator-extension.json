@@ -1,0 +1,13 @@
+{
+  "challenge_module": "extension.ext_problem",
+  "solution_module": "extension.ext_solution",
+  "theorem_names": [
+    "irregularPrimes_isBigO"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": false
+}

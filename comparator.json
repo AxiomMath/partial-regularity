@@ -1,0 +1,13 @@
+{
+  "challenge_module": "PartialRegularity.problem",
+  "solution_module": "PartialRegularity.solution",
+  "theorem_names": [
+    "irregular_primes_asymptotic"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": false
+}
