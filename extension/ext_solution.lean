@@ -467,8 +467,8 @@ lemma eventually_sqrt_div_log_ge_threshold (α : ℝ) (hα : 0 < α) :
 lemma rpow_div_log_monotoneOn (α : ℝ) (hα : 0 < α) :
     MonotoneOn (fun x : ℝ => x ^ (1 / (2 * α)) / Real.log x) {x | Real.exp (2 * α) ≤ x} := by
   have ha : 0 < 1 / (2 * α) := by positivity
-  have hset_eq : {x : ℝ | Real.exp (2 * α) ≤ x} = {x | Real.exp (1 / (1 / (2 * α))) ≤ x} := by
-    simp only [one_div_one_div]
+  have hset_eq : {x : ℝ | Real.exp (2 * α) ≤ x} = Set.Ici (Real.exp (1 / (2 * α))⁻¹) := by
+    ext x; simp [one_div, inv_inv]
   have hanti : AntitoneOn (fun x => Real.log x / x ^ (1 / (2 * α))) {x | Real.exp (2 * α) ≤ x} := by
     rw [hset_eq]
     exact Real.log_div_self_rpow_antitoneOn ha
