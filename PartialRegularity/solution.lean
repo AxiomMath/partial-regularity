@@ -650,31 +650,16 @@ lemma sum_pow_units_eq (p : ℕ) [Fact (Nat.Prime p)] (n : ℕ) :
 
 lemma fin_coe_eq_finEquiv (p : ℕ) [hp : Fact (Nat.Prime p)] (x : Fin p) :
     (x : ZMod p) = (ZMod.finEquiv p) x := by
-  -- For p > 0, ZMod p = Fin p definitionally
-  -- finEquiv p is RingEquiv.refl for p = n+1
-  -- The goal is (x.val : ZMod p) = x
-  -- Since ZMod p = Fin p, this is ((x.val : ℕ) : Fin p) = x
-  -- which follows from Fin.val_cast_of_lt
-  cases p with
-  | zero => exact (hp.out.ne_zero rfl).elim
-  | succ n =>
-    -- ZMod (n+1) = Fin (n+1), finEquiv = refl
-    simp only [ZMod.finEquiv]
-    -- Goal: ↑↑x = (RingEquiv.refl (Fin (n+1))) x
-    -- Use Fin.ext to compare values
-    refine Fin.ext ?_
-    -- Now we compare natural number values
-    -- Goal: ↑↑↑x = ↑((RingEquiv.refl (Fin (n + 1))) x)
-    -- LHS: val of (x.val cast to Fin (n+1))
-    -- RHS: val of (RingEquiv.refl x) = x.val
-    have h3 : ((RingEquiv.refl (Fin (n + 1))) x).val = x.val := rfl
-    -- For Fin.val_natCast: ↑↑a = a % n where first ↑ is Fin.val
-    -- Fin.val_natCast : ∀ (a n : ℕ) [inst : NeZero n], ↑↑a = a % n
-    haveI : NeZero (n + 1) := ⟨Nat.succ_ne_zero n⟩
-    -- So (x.val : Fin (n+1)).val = x.val % (n+1)
-    rw [Fin.val_natCast x.val (n + 1), Nat.mod_eq_of_lt x.isLt]
-    -- Goal now: ↑x = ↑((RingEquiv.refl (Fin (n + 1))) x)
-    exact h3.symm
+  -- For p > 0, ZMod p = Fin p definitionally, and finEquiv p is RingEquiv.refl for p = n+1,
+  -- so the goal is ((x.val : ℕ) : ZMod p) = x
+  haveI : NeZero p := ⟨hp.out.ne_zero⟩
+  -- `ZMod.finEquiv p` is the identity under `ZMod p = Fin p`, so it preserves `val`
+  have h : (ZMod.finEquiv p x).val = (x : ℕ) := by
+    cases p with
+    | zero => exact absurd rfl (NeZero.ne 0)
+    | succ n => rfl
+  -- and `((a.val : ℕ) : ZMod p) = a`
+  rw [← h, ZMod.natCast_rightInverse.eq]
 
 lemma sum_Fin_eq_sum_ZMod (p : ℕ) [Fact (Nat.Prime p)] (n : ℕ) :
     ∑ a : Fin p, (a : ZMod p)^n = ∑ a : ZMod p, a^n := by
@@ -816,7 +801,7 @@ lemma term_j0_padic_val_nonneg (k : ℕ) (hk : 2 ≤ k) (p : ℕ) (hp : Nat.Prim
   rw [show ((n : ℚ) + 1) = ((n + 1 : ℕ) : ℚ) by simp]
   rw [padicValRat.div hpn_ne hn1_ne']
   simp only [padicValRat.of_nat]
-  rw [padicValRat.pow hp_ne, padicValRat.self hp_gt_one]
+  rw [padicValRat.pow (p : ℚ), padicValRat.self hp_gt_one]
   simp only [mul_one]
   have h := padic_val_n_plus_one_le_n k hk p hp
   have heq : n + 1 = 2 * k + 1 := rfl
@@ -967,7 +952,7 @@ lemma padic_val_Tj_eq (k : ℕ) (hk : 2 ≤ k) (p : ℕ) (hp : Nat.Prime p) (j :
   have hB_ne : (Nat.choose n j : ℚ) / (r + 1) * bernoulli j ≠ 0 := mul_ne_zero hA_ne hBj
   show padicValRat p ((Nat.choose n j : ℚ) / (r + 1) * bernoulli j * (p : ℚ)^r) = _
   rw [padicValRat.mul hB_ne hpr_ne, padicValRat.mul hA_ne hBj,
-      padicValRat.div hC_ne hr1_ne, padicValRat.pow hp_ne, padicValRat.self hp.one_lt]
+      padicValRat.div hC_ne hr1_ne, padicValRat.pow (p : ℚ), padicValRat.self hp.one_lt]
   ring
 
 lemma valuation_bound_nonneg (vC vD vB : ℤ) (r : ℕ) (hr : 2 ≤ r)
@@ -2191,7 +2176,7 @@ lemma small_primes_subset_singleton (α : ℝ) (k : ℕ) (X : ℝ) :
 
 lemma total_count_le_large_primes_plus_one (α : ℝ) (k : ℕ) (X : ℝ) :
     (primeCountSet α k X).card ≤ (Finset.filter (fun p => 3 ≤ p) (primeCountSet α k X)).card + 1 := by
-  have h_partition := Finset.filter_card_add_filter_neg_card_eq_card (fun p => 3 ≤ p)
+  have h_partition := Finset.card_filter_add_card_filter_not (fun p => 3 ≤ p)
     (s := primeCountSet α k X)
   have h_small := small_primes_subset_singleton α k X
   have h_card_small : (Finset.filter (fun p => ¬(3 ≤ p)) (primeCountSet α k X)).card ≤ 1 := by
